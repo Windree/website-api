@@ -19,11 +19,7 @@ services:
       - 8081:80
     links:
       - "php:php"
-    depends_on:
-      - php
   php:
     build: ./php
     volumes:
       - "./htdocs:/htdocs"
-    depends_on:
-      - mysql
