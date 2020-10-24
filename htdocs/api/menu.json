@@ -1,0 +1,11 @@
+[
+{'text':'videos','url':'/videos'},
+{'text':'installations','url':'/installations'},
+{'text':'sculptures','url':'/sculptures'},
+{'text':'paintings','url':'/paintings'},
+{'text':'collaborations','url':'/collaborations'},
+{'text':'about','url':'/about'},
+{'text':'artist','url':'/artist'},
+{'text':'cv','url':'/cv'},
+{'text':'contact','url':'/contact'}
+]
