@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: "MyWs12!@"
+      MARIADB_MAX_ALLOWED_PACKET: 1G
+      MARIADB_INNODB_LOG_FILE_SIZE: 64M
+      MARIADB_character-set-server: utf8mb4
+      MARIADB_CHARACTER_SET_SERVER: utf8mb4
+      MARIADB_COLLATION_SERVER: utf8mb4_unicode_ci
+    volumes:
+      - ./database:/var/lib/mysql
+  httpd:
+    build: ./httpd
+    volumes:
+      - "./htdocs:/htdocs"
+    ports:
+      - 8081:80
+    links:
+      - "php:php"
+    depends_on:
+      - php
+  php:
+    build: ./php
+    volumes:
+      - "./htdocs:/htdocs"
+    depends_on:
+      - mysql
