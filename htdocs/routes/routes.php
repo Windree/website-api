@@ -7,4 +7,5 @@ $router->get('/', function () use ($router) {
 });
 
 require_once __DIR__.'/config.php';
+require_once __DIR__.'/content.php';
 require_once __DIR__.'/menu.php';
