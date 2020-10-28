@@ -25,9 +25,14 @@ services:
       - "./htdocs:/htdocs"
     ports:
       - 8081:80
-    links:
-      - "php:php"
   php:
     build: ./php
     volumes:
       - "./htdocs:/htdocs"
+  nginx:
+    image: nginx
+    volumes:
+      - "./static:/usr/share/nginx/html"
+    ports:
+      - 8083:80
+  
