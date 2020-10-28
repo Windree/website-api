@@ -2,7 +2,12 @@
 
 
 $router->get('/api/navigation', function () use ($router) {
-    $results = app('db')->select("SELECT * FROM navigation n inner join page p on p.id=n.page_id");
+    $results = app('db')
+        ->table('navigation')
+        ->join('page', 'page.id', '=', 'navigation.page_id')
+        ->select('navigation.hide', 'page.name', 'page.title', 'page.description', 'page.keywords', 'page.date')
+        ->get()->dump();
+    
     return response()->json(array('items' => array_map(function ($value) {
         return array(
             'hide' => $value->hide,
@@ -14,5 +19,5 @@ $router->get('/api/navigation', function () use ($router) {
                 'date' => $value->date
             )
         );
-    }, $results)));
+    }, $results->toArray())));
 });
