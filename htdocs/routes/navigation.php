@@ -6,8 +6,8 @@ $router->get('/api/navigation', function () use ($router) {
         ->table('navigation')
         ->join('page', 'page.id', '=', 'navigation.page_id')
         ->select('navigation.hide', 'page.name', 'page.title', 'page.description', 'page.keywords', 'page.date')
-        ->get()->dump();
-    
+        ->get();
+
     return response()->json(array('items' => array_map(function ($value) {
         return array(
             'hide' => $value->hide,
