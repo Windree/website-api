@@ -1,22 +1,48 @@
 <?php
 
-$router->get('/api/content/{path}', function ($path) use ($router) {
-    return response()->json(array('cols' => 2, 'items' => array(
-        array(
-            'image' => array('media' => array('id' => 1, 'src' => 'https://pro2-bar-s3-cdn-cf3.myportfolio.com/d32170c7-3969-472f-95cf-6539e1542e8d/ebeba5c7-d601-4ffe-a92f-1a8f113038bb_car_16x9.jpg?h=6a4df22c6046a9f44da4e89965ebaff9')),
-            'link' => array('page' => array('id' => 10001, 'name' => 'sculptures', 'title' => 'STures','date'=>'2019'))
-        ),
-        array(
-            'image' => array('media' => array('id' => 22, 'src' => 'https://pro2-bar-s3-cdn-cf3.myportfolio.com/d32170c7-3969-472f-95cf-6539e1542e8d/ebeba5c7-d601-4ffe-a92f-1a8f113038bb_car_16x9.jpg?h=6a4df22c6046a9f44da4e89965ebaff9')),
-            'link' => array('page' => array('id' => 10002, 'name' => 'instalations', 'title' => 'Insta','date'=>'2030'))
-        ),
-        array(
-            'image' => array('media' => array('id' => 333, 'src' => 'https://pro2-bar-s3-cdn-cf3.myportfolio.com/d32170c7-3969-472f-95cf-6539e1542e8d/4622dcf4-6ae5-49ce-9349-be1225bae690_car_16x9.jpg?h=36853c63789c6eb9c495d09cdbe3ef19')),
-            'link' => array('page' => array('id' => 10003, 'name' => 'paitings', 'title' => 'Paint','date'=>'2021'))
-        ),
-        array(
-            'image' => array('media' => array('id' => 4444, 'src' => 'https://pro2-bar-s3-cdn-cf3.myportfolio.com/d32170c7-3969-472f-95cf-6539e1542e8d/e7e9f16b-7497-499d-bffc-42c2cb433ca9_car_16x9.jpg?h=8d247a3640f2ec3357162bbd7c721bf3')),
-            'link' => array('page' => array('id' => 10004, 'name' => 'videos', 'title' => 'Video HD','date'=>'2022'))
+$router->get('/api/page/{path}', function ($path) use ($router) {
+    $page = app('db')->table('page')->where('name', $path)->first();
+    if ($page === null) {
+        return response()->json([], 404);
+    }
+    $contents = app('db')->table('content')
+        ->where('content.page_id', $page->id)
+        ->leftJoin('page', 'page.id', '=', 'content.content_page_id')
+        ->leftJoin('media', 'media.id', '=', 'page.cover_id')
+        ->select(
+            'page.name as page_name',
+            'page.title as page_title',
+            'page.description as page_description',
+            'page.keywords as page_keywords',
+            'page.date as page_date',
+            'media.id as media_id',
+            'media.hash as media_hash',
+            'media.extension as media_extension'
         )
-    )));
+        ->get();
+
+    return response()->json([
+        'name' => $page->name,
+        'title' => $page->title,
+        'description' => $page->description,
+        'keywords' => $page->keywords,
+        'contents' => array_map(function ($value) {
+            return [
+                'contactForm' => null,
+                'media' => null,
+                'text' => null,
+                'collection' => null,
+                'page' => [
+                    'name' => $value->page_name,
+                    'title' => $value->page_title,
+                    'description' => $value->page_description,
+                    'keywords' => $value->page_keywords,
+                    'date' => $value->page_date,
+                    'cover' => $value->media_id != null ? ['hash'=>$value->media_hash, 'extension'=>$value->media_extension] : null
+                ],
+            ];
+        }, $contents->toArray()),
+        'date' => $page->date,
+        'cover' => $page->cover_id,
+    ]);
 });
