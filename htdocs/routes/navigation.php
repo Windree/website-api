@@ -1,8 +1,8 @@
 <?php
 
 
-$router->get('/api/menu', function () use ($router) {
-    return response()->json(array(
+$router->get('/api/navigation', function () use ($router) {
+    return response()->json(array('items'=> array(0=>)
         array('text' => 'videos', 'url' => 'videos'),
         array('text' => 'installations', 'url' => 'installations'),
         array('text' => 'sculptures', 'url' => 'sculptures'),
