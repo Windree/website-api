@@ -10,6 +10,7 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
         ->leftJoin('page', 'page.id', '=', 'content.content_page_id')
         ->leftJoin('media', 'media.id', '=', 'page.cover_id')
         ->select(
+            'content.width as content_width',
             'page.name as page_name',
             'page.title as page_title',
             'page.description as page_description',
@@ -28,6 +29,7 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
         'keywords' => $page->keywords,
         'contents' => array_map(function ($value) {
             return [
+                'width' => $value->content_width,
                 'contactForm' => null,
                 'media' => null,
                 'text' => null,
@@ -38,7 +40,7 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
                     'description' => $value->page_description,
                     'keywords' => $value->page_keywords,
                     'date' => $value->page_date,
-                    'cover' => $value->media_id != null ? ['hash'=>$value->media_hash, 'extension'=>$value->media_extension] : null
+                    'cover' => $value->media_id != null ? ['hash' => $value->media_hash, 'extension' => $value->media_extension] : null
                 ],
             ];
         }, $contents->toArray()),
