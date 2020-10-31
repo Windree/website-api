@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 31, 2020 at 08:07 AM
+-- Generation Time: Oct 31, 2020 at 04:19 PM
 -- Server version: 10.5.4-MariaDB-1:10.5.4+maria~focal
 -- PHP Version: 7.4.11
 
@@ -35,6 +35,7 @@ CREATE TABLE `content` (
   `content_media_id` int(11) DEFAULT NULL,
   `content_collection_id` int(11) DEFAULT NULL,
   `content_text_id` int(11) DEFAULT NULL,
+  `content_embed_id` int(11) DEFAULT NULL,
   `contact_form_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -42,12 +43,33 @@ CREATE TABLE `content` (
 -- Dumping data for table `content`
 --
 
-INSERT INTO `content` (`id`, `page_id`, `width`, `content_page_id`, `content_media_id`, `content_collection_id`, `content_text_id`, `contact_form_id`) VALUES
-(1, 2, 50, 3, NULL, NULL, NULL, NULL),
-(2, 2, 50, 4, NULL, NULL, NULL, NULL),
-(3, 2, 50, 5, NULL, NULL, NULL, NULL),
-(6, 2, 50, 7, NULL, NULL, NULL, NULL),
-(7, 1, 50, 13, NULL, NULL, NULL, NULL);
+INSERT INTO `content` (`id`, `page_id`, `width`, `content_page_id`, `content_media_id`, `content_collection_id`, `content_text_id`, `content_embed_id`, `contact_form_id`) VALUES
+(1, 2, 50, 3, NULL, NULL, NULL, NULL, NULL),
+(2, 2, 50, 4, NULL, NULL, NULL, NULL, NULL),
+(3, 2, 50, 5, NULL, NULL, NULL, NULL, NULL),
+(6, 2, 50, 7, NULL, NULL, NULL, NULL, NULL),
+(7, 13, 50, NULL, NULL, NULL, NULL, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `embed`
+--
+
+CREATE TABLE `embed` (
+  `id` int(11) NOT NULL,
+  `url` text DEFAULT NULL,
+  `embed_url` text DEFAULT NULL,
+  `page_id` int(11) DEFAULT NULL,
+  `vertical_align` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `embed`
+--
+
+INSERT INTO `embed` (`id`, `url`, `embed_url`, `page_id`, `vertical_align`) VALUES
+(1, 'https://youtu.be/c0tvO1DZTyo', 'https://www.youtube.com/embed/c0tvO1DZTyo', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -141,6 +163,12 @@ ALTER TABLE `content`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `embed`
+--
+ALTER TABLE `embed`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `media`
 --
 ALTER TABLE `media`
@@ -168,6 +196,12 @@ ALTER TABLE `page`
 --
 ALTER TABLE `content`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `embed`
+--
+ALTER TABLE `embed`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `media`
