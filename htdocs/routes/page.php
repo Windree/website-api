@@ -22,6 +22,7 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
             'media.hash as media_hash',
             'media.extension as media_extension',
             'embed.id as embed_id',
+            'embed.height as embed_height',
             'embed.embed_url as embed_embed_url'
         )
         ->get();
@@ -40,6 +41,7 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
                 'collection' => null,
                 'embed' => ($value->embed_id != null) ? [
                     'embedUrl' => $value->embed_embed_url,
+                    'height' => $value->embed_height
                 ] : null,
                 'page' => ($value->page_id != null) ? [
                     'name' => $value->page_name,

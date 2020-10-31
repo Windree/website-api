@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 31, 2020 at 04:19 PM
+-- Generation Time: Oct 31, 2020 at 05:03 PM
 -- Server version: 10.5.4-MariaDB-1:10.5.4+maria~focal
 -- PHP Version: 7.4.11
 
@@ -58,6 +58,7 @@ INSERT INTO `content` (`id`, `page_id`, `width`, `content_page_id`, `content_med
 
 CREATE TABLE `embed` (
   `id` int(11) NOT NULL,
+  `height` int(11) NOT NULL,
   `url` text DEFAULT NULL,
   `embed_url` text DEFAULT NULL,
   `page_id` int(11) DEFAULT NULL,
@@ -68,8 +69,8 @@ CREATE TABLE `embed` (
 -- Dumping data for table `embed`
 --
 
-INSERT INTO `embed` (`id`, `url`, `embed_url`, `page_id`, `vertical_align`) VALUES
-(1, 'https://youtu.be/c0tvO1DZTyo', 'https://www.youtube.com/embed/c0tvO1DZTyo', NULL, 0);
+INSERT INTO `embed` (`id`, `height`, `url`, `embed_url`, `page_id`, `vertical_align`) VALUES
+(1, 788, 'https://youtu.be/c0tvO1DZTyo', 'https://www.youtube.com/embed/c0tvO1DZTyo', NULL, 0);
 
 -- --------------------------------------------------------
 
