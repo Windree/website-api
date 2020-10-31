@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 29, 2020 at 01:19 PM
+-- Generation Time: Oct 31, 2020 at 08:07 AM
 -- Server version: 10.5.4-MariaDB-1:10.5.4+maria~focal
 -- PHP Version: 7.4.11
 
@@ -43,10 +43,11 @@ CREATE TABLE `content` (
 --
 
 INSERT INTO `content` (`id`, `page_id`, `width`, `content_page_id`, `content_media_id`, `content_collection_id`, `content_text_id`, `contact_form_id`) VALUES
-(1, 1, 50, 3, NULL, NULL, NULL, NULL),
-(2, 1, 50, 4, NULL, NULL, NULL, NULL),
-(3, 1, 50, 5, NULL, NULL, NULL, NULL),
-(6, 1, 50, 7, NULL, NULL, NULL, NULL);
+(1, 2, 50, 3, NULL, NULL, NULL, NULL),
+(2, 2, 50, 4, NULL, NULL, NULL, NULL),
+(3, 2, 50, 5, NULL, NULL, NULL, NULL),
+(6, 2, 50, 7, NULL, NULL, NULL, NULL),
+(7, 1, 50, 13, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ CREATE TABLE `media` (
 --
 
 INSERT INTO `media` (`id`, `hash`, `extension`) VALUES
-(1, 'a789e84de5254aa7a57bd85edf154650', 'jpg');
+(1, 'a789e84de5254aa7a57bd85edf154650', 'jpg'),
+(2, 'da266757f1284afc8e11561c91642dba', 'jpg');
 
 -- --------------------------------------------------------
 
@@ -125,7 +127,8 @@ INSERT INTO `page` (`id`, `name`, `title`, `description`, `keywords`, `date`, `c
 (9, 'about', 'about', '', '', 2019, NULL),
 (10, 'artist', 'artist', '', '', 2019, NULL),
 (11, 'cv', 'cv', '', '', 2019, NULL),
-(12, 'contact', 'contact', '', '', 2019, NULL);
+(12, 'contact', 'contact', '', '', 2019, NULL),
+(13, '28', '#28', '', '', 2019, 2);
 
 --
 -- Indexes for dumped tables
@@ -164,13 +167,13 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `navigation`
@@ -182,7 +185,7 @@ ALTER TABLE `navigation`
 -- AUTO_INCREMENT for table `page`
 --
 ALTER TABLE `page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
