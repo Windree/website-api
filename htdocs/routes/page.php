@@ -10,6 +10,7 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
         ->leftJoin('page', 'page.id', '=', 'content.content_page_id')
         ->leftJoin('media', 'media.id', '=', 'page.cover_id')
         ->leftJoin('embed', 'embed.id', '=', 'content.content_embed_id')
+        ->leftJoin('text', 'text.id', '=', 'content.content_text_id')
         ->select(
             'content.width as content_width',
             'page.name as page_id',
@@ -23,7 +24,14 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
             'media.extension as media_extension',
             'embed.id as embed_id',
             'embed.height as embed_height',
-            'embed.embed_url as embed_embed_url'
+            'embed.embed_url as embed_embed_url',
+            'text.id as text_id',
+            'text.html as text_html',
+            'text.width as text_width',
+            'text.max_width as text_max_width',
+            'text.align as text_align',
+            'text.padding_top as text_padding_top',
+            'text.padding_bottom as text_padding_bottom',
         )
         ->get();
 
@@ -37,7 +45,14 @@ $router->get('/api/page/{path}', function ($path) use ($router) {
                 'width' => $value->content_width,
                 'contactForm' => null,
                 'media' => null,
-                'text' => null,
+                'text' => ($value->text_id != null) ? [
+                    'html' => $value->text_html,
+                    'width' => $value->text_width,
+                    'maxWidth' => $value->text_max_width,
+                    'align' => $value->text_align,
+                    'paddingTop' => $value->text_padding_top,
+                    'paddingBottom' => $value->text_padding_bottom
+                ] : null,
                 'collection' => null,
                 'embed' => ($value->embed_id != null) ? [
                     'embedUrl' => $value->embed_embed_url,
